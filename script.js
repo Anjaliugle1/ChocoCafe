@@ -1,3 +1,5 @@
+let discount = 0;
+
 let cart = [];
 let total = 0;
 
@@ -6,35 +8,42 @@ function addToCart(item, price) {
   total += price;
 
   document.getElementById("cartCount").innerText = cart.length;
+  document.getElementById("totalPrice").innerText = total;
+
   updateCart();
   showMessage();
-}
-
-function showMessage() {
-  const msg = document.getElementById("message");
-  msg.style.display = "block";
-
-  setTimeout(() => {
-    msg.style.display = "none";
-  }, 1500); // hide after 1.5 seconds
 }
 
 function updateCart() {
   const cartItems = document.getElementById("cartItems");
   cartItems.innerHTML = "";
 
-  cart.forEach((c, index) => {
-    const li = document.createElement("li");
-    li.className = "list-group-item d-flex justify-content-between align-items-center";
-    li.innerHTML = `
-      <span>${c.item} - ₹${c.price}</span>
-      <button class="btn btn-sm btn-danger" onclick="removeItem(${index})">X</button>
-    `;
+  cart.forEach((product) => {
+    let li = document.createElement("li");
+    li.className = "list-group-item";
+    li.innerText = product.item + " - ₹" + product.price;
     cartItems.appendChild(li);
   });
-
-  document.getElementById("totalPrice").innerText = total;
 }
+
+function showMessage() {
+  const message = document.getElementById("cartMessage");
+  message.style.display = "block";
+
+  setTimeout(() => {
+    message.style.display = "none";
+  }, 2000);
+}
+
+
+
+
+
+// Show toast
+  var toast = new bootstrap.Toast(document.getElementById("cartToast"), {
+    delay: 2000   // 2 seconds nantar auto hide
+  });
+  toast.show();
 
 function removeItem(index) {
   total -= cart[index].price;
@@ -43,3 +52,17 @@ function removeItem(index) {
   document.getElementById("cartCount").innerText = cart.length;
   updateCart();
 }
+
+function signupSuccess() {
+  
+  alert("🎉 Signup Successful!");
+
+  // Signup modal close kara
+  var signupModal = bootstrap.Modal.getInstance(document.getElementById('signupModal'));
+  signupModal.hide();
+
+  // Optional: Login modal open kara automatically
+  var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+  loginModal.show();
+}
+
