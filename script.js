@@ -66,3 +66,13 @@ function signupSuccess() {
   loginModal.show();
 }
 
+function placeOrder() {
+  if(cart.length === 0) {
+    alert("Your cart is empty!");
+  } else {
+    alert("Order placed successfully!");
+    cart = [];
+    document.getElementById("orderMessage").innerText =
+      "✅ Thank you! Your order is confirmed.";
+  }
+}
